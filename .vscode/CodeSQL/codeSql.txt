@@ -1,0 +1,68 @@
+code cho table member
+------------------------------------
+CREATE TABLE IF NOT EXISTS `member` (
+  `id` int(11) NOT NULL AUTO_INCREMENT, // id tự động tăng
+   `fullname` varchar(100) NOT NULL, // varchar tức là kiểu string trong c++
+  `username` varchar(100) NOT NULL,     
+  `password` varchar(100) NOT NULL,
+  `phone` int(15) NOT NULL,
+  `email`  varchar(50) NOT NULL,
+  PRIMARY KEY (`id`) // dat khoa chính là id thì id trogn bảng sẽ ko dc lặp lại
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; // charset = utf8 để xét tiếng việt cho table  
+ENGINE=MyISAM // đây là kiẻu lưu trữ của bảng . cos 3 loại lưu trữ là MyISAM , innodb, memory
+
+------------------
+ Thêm dữ liệu vào bảng thì dùng lệnh insert into 
+ ---------
+ 
+INSERT INTO `member` (`id`, `username`, `fullname`, `password`, `phone`, `email`) VALUES
+(1, 'admin', 'Đinh Đức Anh', 'admin', 122483247,'dinhanh21092000@gmail.com'); // lưu ý nếu nhập vào số thì ko được đóng ngoặc '' này ;
+-------------------------------------------------------
+Bảng product
+-----------------
+
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `price` float NOT NULL,
+  `content` text NOT NULL,
+  `created_time` int(11) NOT NULL,
+  `last_updated` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `product` (`id`, `name`, `image`, `price`, `content`, `created_time`, `last_updated`) VALUES
+(1,'Bạn chỉ sóng có một lần','https://baodanang.vn/dataimages/201903/original/images1506306_sach2.jpg',60000,'Sách mới phát hành ',2020,2020)
+,(2,'Lập trình ứng dụng Web Internet & Mạng không dây','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgNRfbml6W-PNK0ELOCPkNkzEJT4cRzQm-Ow&usqp=CAU',70000,'Sách mới phát hành',2020,2020);
+//  để lấy link thì chọn ảnh cần lấy link rồi chuột phải chọn coppy image address rồi paste vào kia
+// t điền 2 cái thôi nhiều vl ngại điền 
+
+-------------------------------------------------------------------------------------
+// bang order_detail nay để lưu nội dung oder
+CREATE TABLE IF NOT EXISTS `order_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `created_time` int(11) NOT NULL,
+  `last_updated` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+  //KEY thường là từ đồng nghĩa với INDEX. Thuộc tính khóa PRIMARY KEY cũng có thể được chỉ định là chỉ KEY khi được đưa ra trong một định nghĩa cột. Điều này đã được thực hiện để tương thích với các hệ thống cơ sở dữ liệu khác.
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+----------------------
+// bảng oder này để luu noi dung khi da tính tổng tiền 
+CREATE TABLE IF NOT EXISTS `order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address` varchar(500) NOT NULL,
+  `note` text NOT NULL,
+  `total` int(11) NOT NULL,
+  `created_time` int(11) NOT NULL,
+  `last_updated` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
